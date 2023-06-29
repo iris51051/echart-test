@@ -1,13 +1,47 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.ScoreCard,
+.ScoreCardRow,
+.ScoreCardCol {
+  border: 1px solid #dbdbdb;
+  border-collapse: collapse;
+  text-align: center;
+}
+.ScoreCard {
+  width: 50%;
+  height: 100px;
+  background-color: #f4f4f4;
+}
+.ScoreChartDiv {
+  height: 50px;
+}
+.ScoreChart {
+  height: 100px !important;
+  width: 300px;
+  top: -14px !important;
+}
+.ArrowUp {
+  color: red;
+}
+.ArrowDown {
+  color: blue;
+}
+.ScoreChartCol {
+  margin-right: 10px;
+  padding: 30px;
+  border: 1px solid #ccc;
+}
+.ScoreChartRow {
+  display: flex;
 }
