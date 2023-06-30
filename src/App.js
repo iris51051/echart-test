@@ -1,8 +1,9 @@
 import React from "react";
-import { Card } from "antd";
+import { Card, Input } from "antd";
 import ECharts, { EChartsReactProps } from "echarts-for-react";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 //BasicMultiLineChart
+//흠냐
 const BLchart = (colors) => {
   const option = {
     title: {
