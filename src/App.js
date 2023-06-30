@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "antd";
+import { Card } from "antd";
 import ECharts, { EChartsReactProps } from "echarts-for-react";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 //BasicMultiLineChart
@@ -201,28 +201,42 @@ const ScoreCardChart = (colors) => {
   };
 
   return (
-    <div align="center" className="ScoreChartRow">
-      {score.map((item) => (
-        <div key={item.key} className="ScoreChartCol">
-          <h4 className="ScoreChartTitle">{item.title}</h4>
-          <div className="ScoreChartValue">
-            {item.value}
-            {item.unit}
+    // <div className="ScoreChartRow">
+    //   {score.map((item) => (
+    //     <div key={item.key} className="ScoreChartCol">
+    //       <h3 className="ScoreChartTitle">{item.title}</h3>
+    //       <div className="ScoreChartValue">
+    //         {item.value}
+    //         {item.unit}
+    //       </div>
+    //       <div className="ScoreChartPersent">
+    //         ({item.persent}%
+    //         {item.persent > 0 ? (
+    //           <CaretUpOutlined className="ArrowUp" />
+    //         ) : (
+    //           <CaretDownOutlined className="ArrowDown" />
+    //         )}
+    //         )
+    //       </div>
+    //       <div className="ScoreChartDiv">
+    //         <AreaLineChart />
+    //       </div>
+    //     </div>
+    //   ))}
+    // </div>
+    <div>
+      <Card className="ScoreChartCard">
+        {score.map((item) => (
+          <div key={item.key} className="ScoreChartCol">
+            <h3 className="ScoreChartTitle">{item.title}</h3>
+            <p className="ScoreChartValue">
+              {item.value}
+              {item.unit}
+            </p>
+            <p className="ScoreChartPersent"></p>
           </div>
-          <div className="ScoreChartPersent">
-            ({item.persent}%
-            {item.persent > 0 ? (
-              <CaretUpOutlined className="ArrowUp" />
-            ) : (
-              <CaretDownOutlined className="ArrowDown" />
-            )}
-            )
-          </div>
-          <div className="ScoreChartDiv">
-            <AreaLineChart />
-          </div>
-        </div>
-      ))}
+        ))}
+      </Card>
     </div>
   );
 };
