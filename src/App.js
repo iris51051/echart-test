@@ -1,7 +1,22 @@
-import React from "react";
-import { Card, Input } from "antd";
+import React, { useState } from "react";
+import {
+  Row,
+  Col,
+  Button,
+  Space,
+  Dropdown,
+  Checkbox,
+  Typography,
+  Divider,
+} from "antd";
 import ECharts, { EChartsReactProps } from "echarts-for-react";
-import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
+import {
+  CaretUpOutlined,
+  CaretDownOutlined,
+  PlusCircleFilled,
+  DownOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 //BasicMultiLineChart
 //흠냐
 const BLchart = (colors) => {
@@ -121,8 +136,8 @@ const ScoreCard = (colors) => {
   ];
   return (
     <>
-      <div style={{ width: "flex" }}>
-        <table className="ScoreCard">
+      <div>
+        <table className="ScoreCardTable">
           <tr className="ScoreCardRow">
             {score.map((item) => (
               <td
@@ -143,106 +158,212 @@ const ScoreCard = (colors) => {
 };
 //스코어카드 차트
 const ScoreCardChart = (colors) => {
+  const [dropdownVisible, setDropdownVisible] = useState(false);
   const score = [
     {
-      key: "1",
+      key: 1,
       title: "총 광고비",
       value: "3,283,872",
       unit: "원",
       persent: 100,
     },
     {
-      key: "2",
+      key: 2,
       title: "총 매출액",
       value: "7.554.857",
       unit: "원",
       persent: -2,
     },
     {
-      key: "3",
+      key: 3,
       title: "ROAS(%)",
       value: "542",
       unit: "%",
       persent: 100,
     },
     {
-      key: "4",
+      key: 4,
       title: "CTR",
       value: "542",
       unit: "%",
       persent: 100,
     },
+    {
+      key: 5,
+      title: "총 노출수",
+      value: "123123123",
+      unit: "회",
+      persent: 40,
+    },
+    {
+      key: 6,
+      title: "평균 노출수",
+      value: "300",
+      unit: "회",
+      persent: 10,
+    },
+    {
+      key: 7,
+      title: "총 클릭수",
+      value: "600",
+      unit: "회",
+      persent: 100,
+    },
+    {
+      key: 8,
+      title: "평균 클릭 수",
+      value: "100",
+      unit: "회",
+      persent: -20,
+    },
+    {
+      key: 9,
+      title: "평균 CTR",
+      value: "120",
+      unit: "%",
+      persent: 30,
+    },
   ];
-  const option = {
-    xAxis: {
-      type: "category",
-      boundaryGap: false,
-      show: false,
-    },
-    yAxis: {
-      type: "value",
-      min: 2,
-      show: false,
-      axisPointer: {
-        label: {
-          formatter: function (params) {
-            return params.value;
-          },
-        },
-      },
-    },
-    series: [
-      {
-        data: [2, 4, 4, 6, 8, 5, 6, 4, 8, 6, 6, 2],
-        type: "line",
-        areaStyle: {},
-        symbol: "none",
-      },
-    ],
-  };
+  const FilterOptions = score.map(({ key, title }) => ({
+    label: title,
+    value: key,
+    disabled: key >= 1 && key <= 4,
+  }));
 
+  const defaultCheckedKeys = score
+    .filter(({ key }) => key >= 1 && key <= 4)
+    .map(({ key }) => key);
+
+  const chartAdd = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+  const HandleChangeValue = (checkedValues) => {
+    console.log("checked = ", checkedValues);
+  };
+  const closeDropdown = () => {
+    setDropdownVisible(false);
+  };
   return (
-    // <div className="ScoreChartRow">
-    //   {score.map((item) => (
-    //     <div key={item.key} className="ScoreChartCol">
-    //       <h3 className="ScoreChartTitle">{item.title}</h3>
-    //       <div className="ScoreChartValue">
-    //         {item.value}
-    //         {item.unit}
-    //       </div>
-    //       <div className="ScoreChartPersent">
-    //         ({item.persent}%
-    //         {item.persent > 0 ? (
-    //           <CaretUpOutlined className="ArrowUp" />
-    //         ) : (
-    //           <CaretDownOutlined className="ArrowDown" />
-    //         )}
-    //         )
-    //       </div>
-    //       <div className="ScoreChartDiv">
-    //         <AreaLineChart />
-    //       </div>
-    //     </div>
-    //   ))}
-    // </div>
     <div>
-      <Card className="ScoreChartCard">
-        {score.map((item) => (
-          <div key={item.key} className="ScoreChartCol">
-            <h3 className="ScoreChartTitle">{item.title}</h3>
-            <p className="ScoreChartValue">
-              {item.value}
-              {item.unit}
-            </p>
-            <p className="ScoreChartPersent"></p>
+      <Row>
+        {score
+          .filter((item) => item.key <= 4)
+          .map((item) => (
+            <Col lg={3} key={item.key} className="ScoreChartCol">
+              <h3 className="ScoreChartTitle">{item.title}</h3>
+              <div className="ScoreChartValueDiv">
+                <span className="ScoreChartValue">{item.value}</span>
+                <span className="ScoreChartUnit"> {item.unit}</span>
+              </div>
+              <div className="ScoreChartPersent">
+                ({item.persent}%
+                {item.persent > 0 ? (
+                  <CaretUpOutlined className="ArrowUp" />
+                ) : (
+                  <CaretDownOutlined className="ArrowDown" />
+                )}
+                )
+              </div>
+              <div>
+                <AreaLineChart />
+              </div>
+            </Col>
+          ))}
+        <Col className="ScoreChartAdd1" lg={3}>
+          <div className="ScoreChartAddContainer">
+            <div>
+              <Dropdown
+                className="chartDropdown"
+                open={dropdownVisible}
+                overlay={
+                  <div className="DropDownLayer">
+                    <div className="DropDownHeader">
+                      <span className="DropdownHeaderText">표현 항목</span>
+                      <div className="DropDownCloseContainer">
+                        <CloseOutlined
+                          className="DropDownClose"
+                          onClick={closeDropdown}
+                        />
+                      </div>
+                    </div>
+                    <Row>
+                      <Checkbox.Group
+                        className="ChartFilter"
+                        options={FilterOptions}
+                        onChange={HandleChangeValue}
+                        defaultValue={defaultCheckedKeys}
+                      >
+                        <Row>
+                          {FilterOptions.map((option) => (
+                            <Col span={8} key={option.value}>
+                              <Checkbox value={option.value}>
+                                {option.label}
+                              </Checkbox>
+                            </Col>
+                          ))}
+                        </Row>
+                      </Checkbox.Group>
+                    </Row>
+                  </div>
+                }
+              >
+                <PlusCircleFilled className="ChartAdder" onClick={chartAdd} />
+              </Dropdown>
+            </div>
           </div>
-        ))}
-      </Card>
+        </Col>
+        <Col className="ScoreChartAdd2" lg={3}>
+          <div className="ScoreChartAddContainer">
+            <PlusCircleFilled className="ChartAdder" />
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };
 const AreaLineChart = (colors) => {
+  const data = [2, 4, 4, 6, 8, 5, 6, 4, 8, 6, 6, 2];
+  const minValues = [];
+  const minValue = Math.min(...data);
+
+  const maxValues = [];
+  const maxValue = Math.max(...data);
+
+  data.forEach((value, index) => {
+    if (value === minValue) {
+      minValues.push(index);
+    }
+    if (value === maxValue) {
+      maxValues.push(index);
+    }
+  });
+
   const option = {
+    tooltip: {
+      backgroundColor: "#636465",
+      textStyle: {
+        color: "white",
+      },
+      trigger: "axis",
+      axisPointer: {
+        label: {
+          show: false,
+        },
+      },
+      formatter: function (params) {
+        var tooltipContent = "";
+        params.forEach(function (item) {
+          var color = "#30c7e9";
+          var value = item.data;
+          tooltipContent +=
+            '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:' +
+            color +
+            ';"></span>';
+          tooltipContent += value;
+        });
+        return tooltipContent;
+      },
+    },
     xAxis: {
       type: "category",
       boundaryGap: false,
@@ -252,20 +373,37 @@ const AreaLineChart = (colors) => {
       type: "value",
       min: 2,
       show: false,
-      axisPointer: {
-        label: {
-          formatter: function (params) {
-            return params.value;
-          },
-        },
-      },
     },
     series: [
       {
-        data: [2, 4, 4, 6, 8, 5, 6, 4, 8, 6, 6, 2],
+        data: data,
         type: "line",
-        areaStyle: {},
+        areaStyle: {
+          color: "rgba(65,128,236,0.2)",
+        },
+        color: "rgba(65,128,236,0.5)",
         symbol: "none",
+        markPoint: {
+          symbol: "circle",
+          symbolSize: 3.5,
+          lsbel: {
+            show: false,
+          },
+          data: [
+            ...maxValues.map((index) => ({
+              type: "max",
+              name: "max",
+              itemStyle: { color: "green" },
+              coord: [index, maxValue],
+            })),
+            ...minValues.map((index) => ({
+              type: "min",
+              name: "min",
+              itemStyle: { color: "orange" },
+              coord: [index, minValue],
+            })),
+          ],
+        },
       },
     ],
   };
@@ -295,6 +433,9 @@ const App = () => {
         </div>
         <div>
           <ScoreCard colors={color} />
+        </div>
+        <br />
+        <div>
           <ScoreCardChart colors={color} />
         </div>
       </div>
