@@ -11,7 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+/* ScoreCard */
 .ScoreCardTable,
 .ScoreCardRow,
 .ScoreCardCol {
@@ -24,24 +24,24 @@ code {
   height: 100px;
   background-color: #f4f4f4;
 }
+/* ScoreCardChart */
 .ScoreChartDiv {
   height: 50px;
 }
 .ScoreChart {
   height: 100px !important;
   vertical-align: top;
-  width: 202;
 }
 .ScoreChartCol {
   width: 210px;
-  margin-right: 10px;
+  margin: 5px;
   padding: 15px;
   border: 1px solid #ccc;
   height: 178px;
 }
 .ScoreChartRow {
-  width: 80%;
   display: flex;
+  height: 178px;
 }
 .ScoreChartTitle {
   margin: 0;
@@ -53,7 +53,7 @@ code {
   text-align: right;
   font-size: 30px;
 }
-.ScoreChartPersent {
+.ScoreChartPercent {
   text-align: right;
   font-size: 11px;
 }
@@ -63,10 +63,10 @@ code {
 .ArrowDown {
   color: blue;
 }
-.ScoreChartAdd1,
-.ScoreChartAdd2 {
+.ScoreChartAdd {
   border: 1px solid #ccc;
-  margin-right: 10px;
+  margin: 5px;
+  height: 178px;
 }
 .ChartAdder {
   color: blue;
@@ -89,10 +89,7 @@ code {
   display: flex;
   justify-content: space-between;
 }
-.ChartFilter {
-  width: 230px;
-  padding: 5px;
-}
+
 .DropDownCloseContainer {
   display: flex;
   align-items: center;
