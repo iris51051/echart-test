@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { Row, Col, Dropdown, Checkbox, Space } from "antd";
+import { Row, Col, Dropdown, Checkbox } from "antd";
 import ECharts from "echarts-for-react";
 import {
   CaretUpOutlined,
@@ -11,7 +11,8 @@ import {
 
 //BasicMultiLineChart
 
-const BLchart = ({colors}) => {
+const BLchart = (colors) => {
+  
   const option = {
     title: {
       text: "Stacked Line",
@@ -39,7 +40,7 @@ const BLchart = ({colors}) => {
     yAxis: {
       type: "value",
     },
-    color:colors,
+    color: colors,
     series: [
       {
         name: "Email",
@@ -149,103 +150,12 @@ const ScoreCard = (colors) => {
     </>
   );
 };
-
 //스코어카드 차트
 const ScoreCardChart = (colors) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [chartCardList, setChartCardList] = useState([]);
   const defaultCheckedKeys = [0, 5, 9, 11];
-  const Mrndata=[
-    13200,
-    19800,
-    13200,
-    8800,
-    19800,
-    0,
-    8800,
-    4400,
-    2750,
-    26400,
-    13200,
-    35200,
-    26400,
-    22000,
-    8800,
-    23100,
-    14300,
-    17600,
-    35200,
-    0,
-    1100,
-    0,
-    0,
-    0,
-    550,
-    550,
-    0,
-    550,
-    550,
-    550,
-    0,
-    0,
-    550,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    550,
-    0,
-    550,
-    0,
-    550,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-]
+
   const score = [
     {
       key: 0,
@@ -253,7 +163,7 @@ const ScoreCardChart = (colors) => {
       value: "7,554,857",
       unit: "원",
       percent: -2,
-      data: Mrndata,
+      data: [0, 205, 211, 401, 234, 290, 130, 150, 0],
     },
     {
       key: 1,
@@ -379,90 +289,84 @@ const ScoreCardChart = (colors) => {
   };
   return (
     <div className="ScoreChartDiv">
-      {score
-        .filter((item) => defaultCheckedKeys.includes(item.key))
-        .map((item) => (
-          <Space.Compact
-            key={item.key}
-            className="ScoreChartCol"
-            direction="vertical"
-          >
-            <h3 className="ScoreChartTitle">{item.title}</h3>
-            <div className="ScoreChartValueDiv">
-              <span className="ScoreChartValue">{item.value}</span>
-              <span className="ScoreChartUnit"> {item.unit}</span>
-            </div>
-            <div className="ScoreChartPercent">
-              ({item.percent}%
-              {item.percent > 0 ? (
-                <CaretUpOutlined className="ArrowUp" />
-              ) : (
-                <CaretDownOutlined className="ArrowDown" />
-              )}
-              )
-            </div>
-            <div>
-              <AreaLineChart data={item.data} />
-            </div>
-          </Space.Compact>
-        ))}
-      {chartCardList.length > 0
-        ? score
-            .filter((item) => chartCardList.includes(item.key))
-            .map((item) => (
-              <Space.Compact
-                key={item.key}
-                className="ScoreChartCol"
-                direction="vertical"
-              >
-                <h3 className="ScoreChartTitle">{item.title}</h3>
-                <div className="ScoreChartValueDiv">
-                  <span className="ScoreChartValue">{item.value}</span>
-                  <span className="ScoreChartUnit"> {item.unit}</span>
-                </div>
-                <div className="ScoreChartPercent">
-                  ({item.percent}%
-                  {item.percent > 0 ? (
-                    <CaretUpOutlined className="ArrowUp" />
-                  ) : (
-                    <CaretDownOutlined className="ArrowDown" />
-                  )}
-                  )
-                </div>
-                <div>
-                  <AreaLineChart data={item.data} />
-                </div>
-              </Space.Compact>
-            ))
-        : null}
-      {/* Chart 추가 */}
-      <Space className="ScoreChartAdd">
-        <div className="ScoreChartAddContainer">
-          <div>
-            <Dropdown
-              className="chartDropdown"
-              open={dropdownVisible}
-              overlay={
-                <div className="DropDownLayer">
-                  <div className="DropDownHeader">
-                    <span className="DropdownHeaderText">표현 항목</span>
-                    <div className="DropDownCloseContainer">
-                      <CloseOutlined
-                        className="DropDownClose"
-                        onClick={closeDropdown}
-                      />
-                    </div>
+      <Row className="ScoreChartRow">
+        {score
+          .filter((item) => defaultCheckedKeys.includes(item.key))
+          .map((item) => (
+            <Col lg={3} key={item.key} className="ScoreChartCol">
+              <h3 className="ScoreChartTitle">{item.title}</h3>
+              <div className="ScoreChartValueDiv">
+                <span className="ScoreChartValue">{item.value}</span>
+                <span className="ScoreChartUnit"> {item.unit}</span>
+              </div>
+              <div className="ScoreChartPercent">
+                ({item.percent}%
+                {item.percent > 0 ? (
+                  <CaretUpOutlined className="ArrowUp" />
+                ) : (
+                  <CaretDownOutlined className="ArrowDown" />
+                )}
+                )
+              </div>
+              <div>
+                <AreaLineChart data={item.data} />
+              </div>
+            </Col>
+          ))}
+        {chartCardList.length > 0
+          ? score
+              .filter((item) => chartCardList.includes(item.key))
+              .map((item) => (
+                <Col lg={3} key={item.key} className="ScoreChartCol">
+                  <h3 className="ScoreChartTitle">{item.title}</h3>
+                  <div className="ScoreChartValueDiv">
+                    <span className="ScoreChartValue">{item.value}</span>
+                    <span className="ScoreChartUnit"> {item.unit}</span>
                   </div>
-                  <Checkbox.Group
-                    style={{
-                      width: "238px",
-                    }}
-                    defaultValue={defaultCheckedKeys}
-                    onChange={HandleChangeValue}
-                  >
-                    <Row className="">
-                      {FilterOptions.filter((option) => option.value >= 1).map(
-                        (option) => (
+                  <div className="ScoreChartPercent">
+                    ({item.percent}%
+                    {item.percent > 0 ? (
+                      <CaretUpOutlined className="ArrowUp" />
+                    ) : (
+                      <CaretDownOutlined className="ArrowDown" />
+                    )}
+                    )
+                  </div>
+                  <div>
+                    <AreaLineChart data={item.data} />
+                  </div>
+                </Col>
+              ))
+          : null}
+        {/* Chart 추가 */}
+        <Col lg={3} className="ScoreChartAdd">
+          <div className="ScoreChartAddContainer">
+            <div>
+              <Dropdown
+                className="chartDropdown"
+                open={dropdownVisible}
+                overlay={
+                  <div className="DropDownLayer">
+                    <div className="DropDownHeader">
+                      <span className="DropdownHeaderText">표현 항목</span>
+                      <div className="DropDownCloseContainer">
+                        <CloseOutlined
+                          className="DropDownClose"
+                          onClick={closeDropdown}
+                        />
+                      </div>
+                    </div>
+                    <Checkbox.Group
+                      style={{
+                        width: "238px",
+                      }}
+                      defaultValue={defaultCheckedKeys}
+                      onChange={HandleChangeValue}
+                    >
+                      <Row className="">
+                        {FilterOptions.filter(
+                          (option) => option.value >= 1
+                        ).map((option) => (
                           <Col span={12}>
                             <Checkbox
                               value={option.value}
@@ -471,18 +375,18 @@ const ScoreCardChart = (colors) => {
                               {option.label}
                             </Checkbox>
                           </Col>
-                        )
-                      )}
-                    </Row>
-                  </Checkbox.Group>
-                </div>
-              }
-            >
-              <PlusCircleFilled className="ChartAdder" onClick={chartAdd} />
-            </Dropdown>
+                        ))}
+                      </Row>
+                    </Checkbox.Group>
+                  </div>
+                }
+              >
+                <PlusCircleFilled className="ChartAdder" onClick={chartAdd} />
+              </Dropdown>
+            </div>
           </div>
-        </div>
-      </Space>
+        </Col>
+      </Row>
     </div>
   );
 };
@@ -591,32 +495,33 @@ const AreaLineChart = ({ data }) => {
 };
 
 const App = () => {
-  const colors = [
-    "#4180ec",
-    "#4fd9bc",
-    "#494e5f",
-    "#30c7e9",
-    "#6269e9",
-    "#00aaaa",
-    "#42c360",
-    "#b5cf14",
-    "#eaab2f",
-    "#bababa",
-  ]
+  const color = [
+    "#c23531",
+    "#2f4554",
+    "#61a0a8",
+    "#d48265",
+    "#91c7ae",
+    "#749f83",
+    "#ca8622",
+    "#bda29a",
+    "#6e7074",
+    "#546570",
+    "#c4ccd3",
+  ];
   return (
     <div style={{ padding: 30 }}>
       <div>
-        <div>
-          <ScoreCardChart colors={colors} />
-        </div>
         <div style={{ padding: "20px", display: "flex" }}>
-          <BLchart colors={colors} />
-          <BarChart colors={colors} />
+          <BLchart colors={color} />
+          <BarChart colors={color} />
         </div>
         <div>
-          <ScoreCard colors={colors} />
+          <ScoreCard colors={color} />
         </div>
         <br />
+        <div>
+          <ScoreCardChart colors={color} />
+        </div>
       </div>
     </div>
   );

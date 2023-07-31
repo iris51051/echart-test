@@ -26,22 +26,23 @@ code {
 }
 /* ScoreCardChart */
 .ScoreChartDiv {
-  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
+
 .ScoreChart {
   height: 100px !important;
   vertical-align: top;
 }
 .ScoreChartCol {
-  width: 210px;
-  margin: 5px;
-  padding: 15px;
+  direction: vertical;
+  margin-bottom: 50px;
+  margin-right: 4px;
+  padding: 25px;
   border: 1px solid #ccc;
   height: 178px;
-}
-.ScoreChartRow {
-  display: flex;
-  height: 178px;
+  width: 16%;
 }
 .ScoreChartTitle {
   margin: 0;
@@ -65,8 +66,12 @@ code {
 }
 .ScoreChartAdd {
   border: 1px solid #ccc;
-  margin: 5px;
+  margin-bottom: 50px;
+  margin-right: 4px;
+  padding: 25px;
   height: 178px;
+  width: 16%;
+  justify-content: center;
 }
 .ChartAdder {
   color: blue;
